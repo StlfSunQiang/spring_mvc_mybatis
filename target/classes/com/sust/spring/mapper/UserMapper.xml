@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sust.spring.mapper.UserMapper">
+    <resultMap id="UserResult" type="user">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="password" column="PASSWORD"/>
+        <result property="dateOfBirth" column="DOB"/>
+        <result property="profileImage.id" column="PROFILE_IMAGE_ID"/>
+        <result property="profileImage.fileName" column="PROFILE_IMAGE_NAME"/>
+    </resultMap>
+    <select id="findAllUsers" resultMap="UserResult">
+        select * from tbl_user
+    </select>
+
+    <insert id="addProfileImage">
+      <!--新增图片表信息-->
+        insert into tbl_file(id,file_name) values(null,'${param2}');
+      <!--更新用户表外键id-->
+        update tbl_user set FILE_ID = ${} where id = ${param1}
+    </insert>
+</mapper>
